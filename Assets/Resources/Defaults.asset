@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158c11a72d1c24f9e9c0518cae31614b, type: 3}
+  m_Name: Defaults
+  m_EditorClassIdentifier: 
+  Coin:
+    topic: {fileID: 11400000, guid: 874a86c8cba834076bf01f190d5ef5f9, type: 2}
+    DefaultValue: {fileID: 0}
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+  CoinPoints:
+    Data:
+    - Key: {fileID: 6682111381007323698, guid: 00d5f52c21b1e4c1cbf70575ff18ac93, type: 3}
+      Value: 1
+    - Key: {fileID: 888490546837961348, guid: c7c02d58053f74202b3739fdfb8c0ffa, type: 3}
+      Value: 10
+    - Key: {fileID: 888490546837961348, guid: b3cc521c9bb7b42efb268ebfcb52bf1c, type: 3}
+      Value: 100
+    Error: []
