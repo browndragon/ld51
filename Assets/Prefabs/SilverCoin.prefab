@@ -63,5 +63,13 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: e68f71c523d144a27a31af4652a3ef30, type: 2}
+    - target: {fileID: 7237344478814525958, guid: 00d5f52c21b1e4c1cbf70575ff18ac93, type: 3}
+      propertyPath: <Link>k__BackingField
+      value: 
+      objectReference: {fileID: 6682111381007323698, guid: 00d5f52c21b1e4c1cbf70575ff18ac93, type: 3}
+    - target: {fileID: 8530074638985324745, guid: 00d5f52c21b1e4c1cbf70575ff18ac93, type: 3}
+      propertyPath: Points
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00d5f52c21b1e4c1cbf70575ff18ac93, type: 3}

@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158c11a72d1c24f9e9c0518cae31614b, type: 3}
   m_Name: Defaults
   m_EditorClassIdentifier: 
-  Coin:
-    topic: {fileID: 11400000, guid: 874a86c8cba834076bf01f190d5ef5f9, type: 2}
-    DefaultValue: {fileID: 0}
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
   CoinPoints:
     Data:
     - Key: {fileID: 6682111381007323698, guid: 00d5f52c21b1e4c1cbf70575ff18ac93, type: 3}
@@ -27,3 +21,23 @@ MonoBehaviour:
     - Key: {fileID: 888490546837961348, guid: b3cc521c9bb7b42efb268ebfcb52bf1c, type: 3}
       Value: 100
     Error: []
+  Block: {fileID: 0}
+  Score:
+    topic: {fileID: 11400000, guid: 5c1644862eb8c47b0a3175c7858185e9, type: 2}
+    DefaultValue: 0
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+  Controls:
+    topic: {fileID: 11400000, guid: da71b279c80744a90a03cf98b1145ad3, type: 2}
+    DefaultValue: {x: 0, y: 0}
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+  FrameSwap:
+    topic: {fileID: 0}
+    DefaultValue: {fileID: 0}
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+  ChunkSize: {x: 8, y: 16}

@@ -1,36 +1,54 @@
+using System;
 using BDUtil;
-using BDUtil.Clone;
+using BDUtil.Fluent;
+using BDUtil.Library;
 using BDUtil.Math;
+using BDUtil.Pubsub;
+using BDUtil.Screen;
 using UnityEngine;
 
 namespace ld51
 {
     [RequireComponent(typeof(TMPro.TMP_Text))]
-    public class ScoreUpdate : MonoBehaviour
+    public class ScoreUpdate : MonoBehaviour, Snapshots.IFuzzControls
     {
-        float score;
+        public AudioLibrary Library;
+        public Topic<float> Score;
         TMPro.TMP_Text text;
+        AudioSource audioSource;
         readonly Disposes.All unsubscribe = new();
+
+        public Randoms.UnitRandom Random => UnityRandoms.main.DistributionPow01(Library.Chaos);
+        public float Power => Library.Power;
+        public float Speed => Library.Speed;
+        Camera Snapshots.IFuzzControls.camera => throw new NotSupportedException();
+        SpriteRenderer Snapshots.IFuzzControls.renderer => throw new NotSupportedException();
+        AudioSource Snapshots.IFuzzControls.audio => audioSource;
+        SpriteRenderers.Snapshot Snapshots.IFuzzControls.rendererSnapshot => throw new NotSupportedException();
+        AudioSources.Snapshot Snapshots.IFuzzControls.audioSnapshot => new()
+        {
+            AudioClip = null,
+            Volume = 1f,
+            Pitch = 1f,
+        };
+
         protected void Awake()
         {
             text = GetComponent<TMPro.TMP_Text>().OrThrow();
+            audioSource = GetComponent<AudioSource>().OrThrow();
         }
         protected void OnEnable()
         {
-            unsubscribe.Add(Defaults.main.Coin.Topic.Subscribe(OnCoin));
+            unsubscribe.Add((Score ?? Defaults.main.Score.Topic).Subscribe(OnScore));
         }
         protected void OnDisable() => unsubscribe.Dispose();
-        void OnCoin(Collider2D coin)
+        void OnScore(float score)
         {
-            if (!coin.isTrigger) return;
-            GameObject root = coin.GetComponent<Cloned>()?.Root;
-            if (root != null && Defaults.main.CoinPoints.Collection.TryGetValue(root, out float value))
-            {
-                score += value;
-                text.OrThrow().text = $"Score: {score}";
-                Vector3 start = coin.transform.localScale, end = new(2f, 0f, 1f);
-                Coroutines.StartCoroutine(new Timer(1f).Foreach(t => coin.transform.localScale = Vector3.Lerp(start, end, Easings.Impl.OutBounce(t)), () => Destroy(coin.gameObject)));
-            }
+            Library.ICategory category = Library.GetICategory("");
+            int index = category.GetRandom();
+            Library.IEntry entry = category.Entries[index];
+            Library.Play(this, entry);
+            text.text = $"Score: {score}";
         }
     }
 }

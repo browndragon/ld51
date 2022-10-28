@@ -9,18 +9,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3190143044966011112}
+  - component: {fileID: 9102942113351230296}
   - component: {fileID: 3190143044966011106}
   - component: {fileID: 3190143044966011117}
   - component: {fileID: 3190143044966011116}
   - component: {fileID: 3190143044966011118}
-  - component: {fileID: 3190143044966011119}
   - component: {fileID: 3190143044966011113}
-  - component: {fileID: 9102942113351230296}
   - component: {fileID: 5862343750360017508}
-  - component: {fileID: 3248091021259805932}
   m_Layer: 0
   m_Name: BallMan
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,6 +38,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9102942113351230296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190143044966011115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1005b6684b5084084a08e2389d01e6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Root>k__BackingField: {fileID: 0}
 --- !u!212 &3190143044966011106
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -149,36 +160,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3190143044966011119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190143044966011115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b01ad52c6aea84b8c968c2811be4eda9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnOver:
-    m_PersistentCalls:
-      m_Calls: []
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDown:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDrag:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUp:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3190143044966011113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,19 +175,6 @@ MonoBehaviour:
   Veloc: 24
   PlaneNormal: {x: 0, y: 0, z: -1}
   PlaneOriginDistance: 0
---- !u!114 &9102942113351230296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190143044966011115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1005b6684b5084084a08e2389d01e6c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Root>k__BackingField: {fileID: 0}
 --- !u!114 &5862343750360017508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,48 +195,3 @@ MonoBehaviour:
   HangTime:
     Length: 0.125
     Start: NaN
---- !u!114 &3248091021259805932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190143044966011115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97a264d963ece4166a5be45f7e811a26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnCollider:
-    OnEnter:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: 874a86c8cba834076bf01f190d5ef5f9, type: 2}
-          m_TargetAssemblyTypeName: BDUtil.Pubsub.ValueTopic`1[[UnityEngine.Collider2D,
-            UnityEngine
-          m_MethodName: SetValue
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    OnStay:
-      m_PersistentCalls:
-        m_Calls: []
-    OnExit:
-      m_PersistentCalls:
-        m_Calls: []
-  OnGameObject:
-    OnEnter:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStay:
-      m_PersistentCalls:
-        m_Calls: []
-    OnExit:
-      m_PersistentCalls:
-        m_Calls: []

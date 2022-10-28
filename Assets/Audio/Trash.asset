@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27dc03e39666f40e89ed058fdb02c45a, type: 3}
+  m_Name: Trash
+  m_EditorClassIdentifier: 
+  Chaos: 1
+  Power: 0.5
+  Speed: 1
+  HashSource_: 0
+  DragAndDropTargets: []
+  Entries:
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: 242d22f5ce720489f83d96af259231bf, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: 35aaf77d4ed704337b00566503c077ec, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: c018a64cee5d94237a154b545ec6087a, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: 37a7caf1a11db4acca8f915361bc1f2b, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: 3a7618554a4e144f29382ae13550eaf3, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: 2cfea1f9bb2bd4364be8db2ebb384788, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: e94bc42137eb14a51a202992b2af09dd, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: c781d10cbf9b54a659d85fc280057128, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
+  - tags: []
+    odds: 1
+    Data:
+      Delay:
+        Pivot: 0
+        Scale: 0
+      Easing: 0
+      FuzzTarget:
+        PivotOverrides: 1
+        Pivot:
+          AudioClip: {fileID: 8300000, guid: ed2c8325bdd1c414799138bde17371d2, type: 3}
+          Volume: 0
+          Pitch: 0
+        alsoOverride: 6
+        Fuzz:
+          Volume: 0.1
+          Pitch: 0.1
