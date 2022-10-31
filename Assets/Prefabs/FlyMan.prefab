@@ -63,5 +63,9 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 384bdf81c8fee4e09a6c32386ac86616, type: 2}
+    - target: {fileID: 9102942113351230296, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: <Link>k__BackingField
+      value: 
+      objectReference: {fileID: 3190143044966011115, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}

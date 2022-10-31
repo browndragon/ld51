@@ -156,29 +156,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ac72ba000664a8988f0cfcf2832234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxGroundDX: 12
-  MaxJumpDX: 6
-  MaxAirDX: 4
-  MaxJumpDY: 12
-  MaxDropDY: 6
-  MaxAcceleration: 120
-  CrouchSpeed: 0.333
+  MaxDX: 12
+  CrouchDXScale: 0.5
+  JumpDXScale: 0.75
+  AirDXScale: 0.25
+  JumpDY: 18
+  RiseDY: 0
+  DropDY: -6
+  JumpGravity: 0
+  RiseGravity: 4
+  FallGravity: 6
+  JumpTime:
+    Length: 0.125
+    Start: NaN
+  IsJumping: 0
   MovementSmoothing: 0.05
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  GroundCheck: {x: 0.5, y: 0, z: 0.2}
+  GroundCheck: {x: 0.5, y: 0, z: 0.1}
   IsGrounded: 0
   CoyoteTime:
     Length: 0.0625
     Start: NaN
-  BoostTime:
-    Length: 0.0625
-    Start: NaN
-  BoostGravity: 0
-  UpGravity: 1
-  FallGravity: 2
-  CeilingCheck: {x: 0.5, y: 1, z: 0.2}
+  CeilingCheck: {x: 0.5, y: 1, z: 0.1}
   IsCrouching: 0
   FacingRight: 1
   OnGroundEvent:
@@ -204,9 +205,9 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &234581832
 CircleCollider2D:
@@ -395,7 +396,11 @@ MonoBehaviour:
   - rid: 6742291532800327685
   - rid: 6742291532800327689
   - rid: 6742291532800327684
+  Karmas:
+  - rid: 6742291532800327697
   Width: 200
+  GoodKarma: 0
+  BadKarma: 0
   references:
     version: 2
     RefIds:
@@ -437,7 +442,7 @@ MonoBehaviour:
           max: 12
         Up:
           min: -2
-          max: 2
+          max: 3
         Down:
           min: 2
           max: 8
@@ -454,13 +459,13 @@ MonoBehaviour:
           max: 2
         Gap:
           min: 2
-          max: 6
+          max: 5
         After:
           min: 0
           max: 2
         Drop:
-          min: 0
-          max: 0
+          min: -1
+          max: 2
         Odds: 0.25
         Tiles:
         - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
@@ -503,6 +508,18 @@ MonoBehaviour:
         Run:
           min: 2
           max: 12
+    - rid: 6742291532800327697
+      type: {class: TilemapCustomizer/SpawnEnemy, ns: ld51, asm: Assembly-CSharp}
+      data:
+        MaxKarma: 24
+        Protos:
+        - {fileID: 4648394648417142141, guid: e99f5c3bc43d641be876f774292a5337, type: 3}
+        - {fileID: 4648394648417142141, guid: 296b1e19c831d4f7aadf5ed7428c13bf, type: 3}
+        - {fileID: 4648394648417142141, guid: 0d07a3f260ec54e51a3c5554687a2acf, type: 3}
+        - {fileID: 3190143044966011116, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+        - {fileID: 4648394648417142141, guid: 55bbf24ea1d8f4169be70ad7b7a9ea7b, type: 3}
+        - {fileID: 4648394648417142141, guid: 374f44d3f05ae486f827f87bdd654b51, type: 3}
+        - {fileID: 4648394648417142141, guid: 7ea7b880fbfc64be3b87b44f2f8272a7, type: 3}
 --- !u!1 &1992582063
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +575,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -621,10 +638,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f446f6861a24f4718a2f2d1be5e7b54c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CamSmooth: 0.125
   PointSource:
     rid: 6742291532800327693
-  DeadZone: {x: 0.5, y: 0.5}
-  MaxZone: {x: 0.875, y: 0.875}
+  DeadZone: {x: 0.09375, y: 0.09375}
+  MaxZone: {x: 0.9375, y: 0.9375}
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -650,7 +668,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   GroundSpeed: 25
-  Velocity: {x: 0, y: 0}
+  Velocity: {x: 0, y: 0, z: 0}
   Viewport0: {x: 0, y: 0}
   SpeedRatio: {x: 0, y: 0}
   IsInDeadZone: 0

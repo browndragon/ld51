@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 3190143044966011118}
   - component: {fileID: 3190143044966011113}
   - component: {fileID: 5862343750360017508}
+  - component: {fileID: 4966592808402701764}
+  - component: {fileID: -8187773983425470407}
   m_Layer: 0
   m_Name: BallMan
   m_TagString: Player
@@ -50,7 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1005b6684b5084084a08e2389d01e6c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Root>k__BackingField: {fileID: 0}
+  <FabType>k__BackingField: 2
+  <Link>k__BackingField: {fileID: 0}
+  <Asset>k__BackingField: {fileID: 3190143044966011115}
 --- !u!212 &3190143044966011106
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -190,8 +194,80 @@ MonoBehaviour:
   NamedX: dXZ
   NamedY: dY
   NamedOnGround: OnGround
-  GroundDistance: 0.0078125
-  onGround: 0
-  HangTime:
+--- !u!114 &4966592808402701764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190143044966011115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ac72ba000664a8988f0cfcf2832234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDX: 12
+  CrouchDXScale: 0.5
+  JumpDXScale: 0.75
+  AirDXScale: 0.25
+  JumpDY: 18
+  RiseDY: 0
+  DropDY: -6
+  JumpGravity: 0
+  RiseGravity: 4
+  FallGravity: 6
+  JumpTime:
     Length: 0.125
     Start: NaN
+  IsJumping: 0
+  MovementSmoothing: 0.05
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  GroundCheck: {x: 0.5, y: 0, z: 0.1}
+  IsGrounded: 0
+  CoyoteTime:
+    Length: 0.0625
+    Start: NaN
+  CeilingCheck: {x: 0.5, y: 1, z: 0.1}
+  IsCrouching: 0
+  FacingRight: 1
+  OnGroundEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCrouchEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-8187773983425470407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190143044966011115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68877dcb34e5b455790c9b335c80ead9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pattern:
+    rid: 6742291532800327698
+  Controller: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6742291532800327698
+      type: {class: CharacteristicMovement/Randomwalk, ns: ld51, asm: Assembly-CSharp}
+      data:
+        Timer:
+          Length: 0.5
+          Start: 0
+        DXRange:
+          position: 0
+          size: 1
+        DelayRange:
+          position: 0.25
+          size: 0.75
+        ReverseOdds: 0.25
+        JumpOdds: 0.375
+        MaxAcc: 10

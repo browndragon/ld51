@@ -24,6 +24,11 @@ namespace ld51
         }
         /// The set of customizers to apply
         [SerializeReference, Subtype] public ICustomizer[] Customizers;
+        public interface IKarma
+        {
+            bool Customize(TilemapCustomizer thiz, Tilemap tilemap);
+        }
+        [SerializeReference, Subtype] public IKarma[] Karmas;
 
         [Header("Tracking fields")]
         /// The total x-position consumed, thus next x position to set.
@@ -32,6 +37,8 @@ namespace ld51
         /// The set of acceptable y positions for the ground to continue from.
         /// For ICustomizers to use.
         public readonly List<Platform> Platforms = new();
+        public int GoodKarma;
+        public int BadKarma;
 
         /// A platform is the running series of walkable space.
         [Serializable]
@@ -123,20 +130,82 @@ namespace ld51
             Tilemap tilemap = Pool.main.Acquire(Proto);
             tilemap.ClearAllTiles();
             tilemap.CompressBounds();
-            int offset = UnityRandoms.main.Range(0, Customizers.Length);
+            ApplyOneCustomizer(tilemap, UnityRandoms.main.Range(0, Customizers.Length));
+            tilemap.transform.position = tilemap.transform.position.WithX(Width);
+            tilemap.transform.SetParent(transform);
+            BadKarma += Platforms.Count * tilemap.cellBounds.size.x;
+            Width += tilemap.cellBounds.xMax;
+            ApplyOneKarma(tilemap, UnityRandoms.main.Range(0, Karmas.Length));
+        }
+        void ApplyOneCustomizer(Tilemap tilemap, int offset)
+        {
             for (int i = 0; i < Customizers.Length; ++i)
             {
                 ICustomizer customizer = Customizers[(offset + i) % Customizers.Length];
                 if (!customizer.Customize(this, tilemap)) continue;
                 tilemap.CompressBounds();
                 tilemap.RefreshAllTiles();
-                tilemap.transform.position = tilemap.transform.position.WithX(Width);
-                tilemap.transform.SetParent(transform);
-                Width += tilemap.cellBounds.xMax;
                 tilemap.name = $"{customizer.GetType().Name.Replace("TilemapCustomizer+", "")} ->{Width}";
                 return;
             }
             throw new NotSupportedException();
+        }
+        void ApplyOneKarma(Tilemap tilemap, int offset)
+        {
+            if (Karmas == null || Karmas.Length <= 0) return;
+            for (int i = 0; i < Customizers.Length; ++i)
+            {
+                IKarma customizer = Karmas[(offset + i) % Karmas.Length];
+                if (!customizer.Customize(this, tilemap)) continue;
+                return;
+            }
+            throw new NotSupportedException();
+        }
+        [Serializable]
+        public struct None : IKarma
+        {
+            public bool Customize(TilemapCustomizer thiz, Tilemap tilemap) => true;
+        }
+        [Serializable]
+        public struct SpawnEnemy : IKarma
+        {
+            public int MaxKarma;
+            public Collider2D[] Protos;
+            public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
+            {
+                if (Protos == null) return false;
+                int expended = 0;
+                while (true)
+                {
+                    Vector3Int cell = UnityRandoms.main.RandomValue(tilemap.cellBounds);
+                    int celly = cell.y - tilemap.cellBounds.yMin;
+                    bool isReady = false;
+                    for (int y = 0; y <= tilemap.cellBounds.size.y; ++y)
+                    {
+                        cell.y = tilemap.cellBounds.yMin + ((y + celly) % tilemap.cellBounds.size.y);
+                        TileBase floor = tilemap.GetTile(cell);
+                        if (floor != null)
+                        {
+                            floor = tilemap.GetTile(cell + Vector3Int.up);
+                            if (floor == null)
+                            {
+                                isReady = true; break;
+                            }
+                        }
+                    }
+                    if (isReady)
+                    {
+                        int offset = UnityRandoms.main.Range(0, Protos?.Length ?? 0);
+                        expended += offset + 1;
+                        if (expended > MaxKarma || expended > thiz.BadKarma) break;
+                        Collider2D instantiated = Pool.main.Acquire(Protos[offset]);
+                        instantiated.transform.position = tilemap.CellToWorld(cell + Vector3Int.up);
+                    }
+                }
+                thiz.GoodKarma += expended / 2;
+                thiz.BadKarma -= expended;
+                return expended > 0;
+            }
         }
         [Serializable]
         public struct Initialize : ICustomizer
