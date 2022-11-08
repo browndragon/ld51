@@ -335,10 +335,10 @@ MonoBehaviour:
       data:
         RequirePlatforms:
           min: 0
-          max: 2
-        Width:
-          min: 2
           max: 4
+        Width:
+          min: 5
+          max: 8
         HGap:
           min: 2
           max: 4
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f446f6861a24f4718a2f2d1be5e7b54c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CamSmooth: 0.125
+  CamSmooth: 0.375
   FollowMouse: 0
   <ViewportPoint>k__BackingField: {x: 0, y: 0}
   DeadZone: {x: 0.09375, y: 0.09375}
@@ -578,7 +578,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  GroundSpeed: 25
   Velocity: {x: 0, y: 0, z: 0}
   SpeedRatio: {x: 0, y: 0}
   IsInDeadZone: 0

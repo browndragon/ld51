@@ -135,12 +135,9 @@ namespace ld51
         }
         public bool Extend()
         {
-            if (Customizers == null || Customizers.Length <= 0)
-            {
-                throw new NotSupportedException();
-            }
-
+            if (Customizers == null || Customizers.Length <= 0) throw new NotSupportedException();
             CustomizerPhase phase = Customizers[Phase];
+            if (phase.Customizers == null || phase.Customizers.Length <= 0) throw new NotSupportedException();
             Tilemap tilemap = Pool.main.Acquire(Proto);
             tilemap.ClearAllTiles();
             tilemap.CompressBounds();
@@ -161,7 +158,7 @@ namespace ld51
             CustomizerPhase phase = Customizers[Phase];
             for (int i = 0; i < phase.Customizers?.Length; ++i)
             {
-                ICustomizer customizer = phase.Customizers[(offset + i) % Customizers.Length];
+                ICustomizer customizer = phase.Customizers[(offset + i) % phase.Customizers.Length];
                 if (!customizer.Customize(this, tilemap)) continue;
                 tilemap.CompressBounds();
                 tilemap.RefreshAllTiles();
