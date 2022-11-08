@@ -22,14 +22,22 @@ namespace ld51
         {
             bool Customize(TilemapCustomizer thiz, Tilemap tilemap);
         }
-        /// The set of customizers to apply
-        [SerializeReference, Subtype] public ICustomizer[] Customizers;
         public interface IKarma
         {
             bool Customize(TilemapCustomizer thiz, Tilemap tilemap);
         }
-        [SerializeReference, Subtype] public IKarma[] Karmas;
+        [Serializable]
+        public struct CustomizerPhase
+        {
+            [SerializeReference, Subtype]
+            public ICustomizer[] Customizers;
+            [SerializeReference, Subtype]
+            public IKarma[] Karmas;
+            public int Width;
+        }
+        public CustomizerPhase[] Customizers;
 
+        public int Phase = 0;
         [Header("Tracking fields")]
         /// The total x-position consumed, thus next x position to set.
         /// Customizers use 0-based tilemap slices, so don't need this.
@@ -112,50 +120,65 @@ namespace ld51
 
         protected void Start()
         {
-            int target = Width;
-            Width = 0;
-            ExtendTo(target);
+            for (Phase = 0; Phase < Customizers?.Length; ++Phase)
+            {
+                int target = Customizers[Phase].Width;
+                int startWidth = Width;
+                ExtendTo(startWidth + target);
+            }
             SceneBounds.ClearBounds();
+            SceneBounds.RecalculateBounds(left: 2f, right: 2f, top: 8f);
         }
         public void ExtendTo(int width)
         {
-            while (Width < width) Extend();
+            while (Width < width && Extend()) { }
         }
-        public void Extend()
+        public bool Extend()
         {
             if (Customizers == null || Customizers.Length <= 0)
             {
                 throw new NotSupportedException();
             }
+
+            CustomizerPhase phase = Customizers[Phase];
             Tilemap tilemap = Pool.main.Acquire(Proto);
             tilemap.ClearAllTiles();
             tilemap.CompressBounds();
-            ApplyOneCustomizer(tilemap, UnityRandoms.main.Range(0, Customizers.Length));
-            tilemap.transform.position = tilemap.transform.position.WithX(Width);
+            if (!ApplyOneCustomizer(tilemap, UnityRandoms.main.Range(0, phase.Customizers.Length)))
+            {
+                Pool.main.Release(tilemap.gameObject);
+                return false;
+            }
+            tilemap.transform.position = transform.position + tilemap.transform.position + Width * Vector3.right;
             tilemap.transform.SetParent(transform);
             BadKarma += Platforms.Count * tilemap.cellBounds.size.x;
             Width += tilemap.cellBounds.xMax;
-            ApplyOneKarma(tilemap, UnityRandoms.main.Range(0, Karmas.Length));
+            if (phase.Karmas != null) ApplyOneKarma(tilemap, UnityRandoms.main.Range(0, phase.Karmas.Length));
+            return true;
         }
-        void ApplyOneCustomizer(Tilemap tilemap, int offset)
+        bool ApplyOneCustomizer(Tilemap tilemap, int offset)
         {
-            for (int i = 0; i < Customizers.Length; ++i)
+            CustomizerPhase phase = Customizers[Phase];
+            for (int i = 0; i < phase.Customizers?.Length; ++i)
             {
-                ICustomizer customizer = Customizers[(offset + i) % Customizers.Length];
+                ICustomizer customizer = phase.Customizers[(offset + i) % Customizers.Length];
                 if (!customizer.Customize(this, tilemap)) continue;
                 tilemap.CompressBounds();
                 tilemap.RefreshAllTiles();
                 tilemap.name = $"{customizer.GetType().Name.Replace("TilemapCustomizer+", "")} ->{Width}";
-                return;
+                return true;
             }
-            throw new NotSupportedException();
+            // We're allowed to fail -- permanently! -- in the final phase.
+            if (Phase >= Customizers.Length - 1) return false;
+            throw new NotSupportedException($"At phase {Phase}/width {Width}/plat {Platforms.Count} couldn't fit any of {phase.Customizers?.Length} customizers");
         }
         void ApplyOneKarma(Tilemap tilemap, int offset)
         {
-            if (Karmas == null || Karmas.Length <= 0) return;
+            CustomizerPhase phase = Customizers[Phase];
+            if (phase.Karmas == null || phase.Karmas.Length <= 0) return;
             for (int i = 0; i < Customizers.Length; ++i)
             {
-                IKarma customizer = Karmas[(offset + i) % Karmas.Length];
+                IKarma customizer = phase.Karmas[(offset + i) % phase.Karmas.Length];
                 if (!customizer.Customize(this, tilemap)) continue;
                 return;
             }
@@ -196,7 +219,7 @@ namespace ld51
                     if (isReady)
                     {
                         int offset = UnityRandoms.main.Range(0, Protos?.Length ?? 0);
-                        expended += offset + 1;
+                        expended += offset / 2 + 1;
                         if (expended > MaxKarma || expended > thiz.BadKarma) break;
                         Collider2D instantiated = Pool.main.Acquire(Protos[offset]);
                         instantiated.transform.position = tilemap.CellToWorld(cell + Vector3Int.up);
@@ -210,8 +233,10 @@ namespace ld51
         [Serializable]
         public struct Initialize : ICustomizer
         {
+            [Tooltip("X/Y to cover with new platforms")]
             public Vector2Int InitArea;
-            public ExtentInt.MinMax Count;
+            [Tooltip("Number of new platforms")]
+            public ExtentInt Count;
             public Tile[] Tiles;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
@@ -246,7 +271,7 @@ namespace ld51
         [Serializable]
         public struct Extrude : ICustomizer
         {
-            public ExtentInt.MinMax Width;
+            public ExtentInt Width;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 0) return false;
@@ -259,8 +284,8 @@ namespace ld51
         public struct Climb : ICustomizer
         {
             [Range(0f, 1f)] public float FallOdds;
-            public ExtentInt.MinMax Rise;
-            public ExtentInt.MinMax Run;
+            public ExtentInt Rise;
+            public ExtentInt Run;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 0) return false;
@@ -278,9 +303,9 @@ namespace ld51
         [Serializable]
         public struct Splay : ICustomizer
         {
-            public Extent.MinMax SetPoint;
-            public ExtentInt.MinMax DeltaHeight;
-            public ExtentInt.MinMax Width;
+            public Extent SetPoint;
+            public ExtentInt DeltaHeight;
+            public ExtentInt Width;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count < 2) return false;
@@ -326,8 +351,8 @@ namespace ld51
         {
             [Range(0f, 1f)] public float Odds;
             public Tile[] Tiles;
-            public ExtentInt.MinMax Width;
-            public ExtentInt.MinMax Height;
+            public ExtentInt Width;
+            public ExtentInt Height;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 0) return false;
@@ -353,10 +378,10 @@ namespace ld51
         [Serializable]
         public struct ExtrudeGap : ICustomizer
         {
-            public ExtentInt.MinMax Before;
-            public ExtentInt.MinMax Gap;
-            public ExtentInt.MinMax After;
-            public ExtentInt.MinMax Drop;
+            public ExtentInt Before;
+            public ExtentInt Gap;
+            public ExtentInt After;
+            public ExtentInt Drop;
             // Not *actually* odds; for instance, .5 means "one half overall" (and: rounded up!).
             [Range(0f, 1f)] public float Odds;
             public Tile[] Tiles;
@@ -386,7 +411,7 @@ namespace ld51
         public struct Terminate : ICustomizer
         {
             [Range(0f, 1f)] public float Odds;
-            public ExtentInt.MinMax Width;
+            public ExtentInt Width;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 1) return false;
@@ -410,11 +435,11 @@ namespace ld51
         [Serializable]
         public struct Fork : ICustomizer
         {
-            public ExtentInt.MinMax RequirePlatforms;
-            public ExtentInt.MinMax Width;
-            public ExtentInt.MinMax HGap;  // Of up to width.
-            public ExtentInt.MinMax Up;  // Height the upper path can bump up
-            public ExtentInt.MinMax Down;  // Height below Up to drop (you must choose min > clearance!).
+            public ExtentInt RequirePlatforms;
+            public ExtentInt Width;
+            public ExtentInt HGap;  // Of up to width.
+            public ExtentInt Up;  // Height the upper path can bump up
+            public ExtentInt Down;  // Height below Up to drop (you must choose min > clearance!).
             public Tile[] Tiles;
             [Range(0f, 1f)] public float TileOdds;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)

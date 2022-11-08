@@ -123,211 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &234581828
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 234581834}
-  - component: {fileID: 234581833}
-  - component: {fileID: 234581832}
-  - component: {fileID: 234581831}
-  - component: {fileID: 234581829}
-  - component: {fileID: 234581835}
-  m_Layer: 0
-  m_Name: Circle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &234581829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234581828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ac72ba000664a8988f0cfcf2832234, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxDX: 12
-  CrouchDXScale: 0.5
-  JumpDXScale: 0.75
-  AirDXScale: 0.25
-  JumpDY: 18
-  RiseDY: 0
-  DropDY: -6
-  JumpGravity: 0
-  RiseGravity: 4
-  FallGravity: 6
-  JumpTime:
-    Length: 0.125
-    Start: NaN
-  IsJumping: 0
-  MovementSmoothing: 0.05
-  GroundLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  GroundCheck: {x: 0.5, y: 0, z: 0.1}
-  IsGrounded: 0
-  CoyoteTime:
-    Length: 0.0625
-    Start: NaN
-  CeilingCheck: {x: 0.5, y: 1, z: 0.1}
-  IsCrouching: 0
-  FacingRight: 1
-  OnGroundEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCrouchEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!50 &234581831
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234581828}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!58 &234581832
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234581828}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!212 &234581833
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234581828}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &234581834
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234581828}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &234581835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234581828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ca0209ff210b48f4aa06e90cfbfe1c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Subscribes:
-  - rid: 6742291532800327696
-  references:
-    version: 2
-    RefIds:
-    - rid: 6742291532800327696
-      type: {class: V2Topic/UEventV2, ns: BDUtil.Pubsub, asm: org.dawnborn.bdutil.Runtime}
-      data:
-        Topic: {fileID: 11400000, guid: da71b279c80744a90a03cf98b1145ad3, type: 2}
-        Event:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 234581829}
-              m_TargetAssemblyTypeName: BDUtil.Pubsub.CharacterController2D, org.dawnborn.bdutil.Runtime
-              m_MethodName: Move
-              m_Mode: 0
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: 
-                m_BoolArgument: 0
-              m_CallState: 2
 --- !u!1 &279831878
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279831878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -12, y: -16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -388,138 +183,237 @@ MonoBehaviour:
   Proto: {fileID: 2672498453693265646, guid: 4e065e639051d4748b269b2cd060d506, type: 3}
   VClear: 4
   Customizers:
-  - rid: 6742291532800327682
-  - rid: 6742291532800327686
-  - rid: 6742291532800327683
-  - rid: 6742291532800327687
-  - rid: 6742291532800327688
-  - rid: 6742291532800327685
-  - rid: 6742291532800327689
-  - rid: 6742291532800327684
-  Karmas:
-  - rid: 6742291532800327697
-  Width: 200
+  - Customizers:
+    - rid: 8280360671373688832
+    - rid: 8280360671373688833
+    - rid: 8280360671373688836
+    - rid: 8280360671373688834
+    - rid: 8280360671373688835
+    Karmas:
+    - rid: 8280360671373688846
+    Width: 20
+  - Customizers:
+    - rid: 8280360671373688841
+    - rid: 8280360671373688838
+    - rid: 8280360671373688839
+    - rid: 8280360671373688840
+    - rid: 8280360671373688843
+    - rid: 8280360671373688842
+    - rid: 8280360671373688844
+    - rid: 8280360671373688837
+    Karmas:
+    - rid: 8280360671373688847
+    Width: 200
+  - Customizers:
+    - rid: 8280360671373688845
+    Karmas:
+    - rid: 8280360671373688848
+    Width: 20
+  Phase: 0
+  Width: 0
   GoodKarma: 0
   BadKarma: 0
   references:
     version: 2
     RefIds:
-    - rid: 6742291532800327682
+    - rid: 8280360671373688832
       type: {class: TilemapCustomizer/Initialize, ns: ld51, asm: Assembly-CSharp}
       data:
-        InitArea: {x: 4, y: 16}
+        InitArea: {x: 10, y: 10}
         Count:
           min: 1
-          max: 5
+          max: 2
         Tiles:
-        - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
-        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
-        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
-    - rid: 6742291532800327683
+        - {fileID: 11400000, guid: 6d6e55be48da04165a02550db7e8be01, type: 2}
+    - rid: 8280360671373688833
       type: {class: TilemapCustomizer/Extrude, ns: ld51, asm: Assembly-CSharp}
       data:
         Width:
           min: 2
           max: 8
-    - rid: 6742291532800327684
-      type: {class: TilemapCustomizer/Terminate, ns: ld51, asm: Assembly-CSharp}
+    - rid: 8280360671373688834
+      type: {class: TilemapCustomizer/Climb, ns: ld51, asm: Assembly-CSharp}
       data:
-        Odds: 0.75
-        Width:
+        FallOdds: 0.5
+        Rise:
+          min: 1
+          max: 4
+        Run:
           min: 2
           max: 8
-    - rid: 6742291532800327685
-      type: {class: TilemapCustomizer/Fork, ns: ld51, asm: Assembly-CSharp}
+    - rid: 8280360671373688835
+      type: {class: TilemapCustomizer/Splay, ns: ld51, asm: Assembly-CSharp}
       data:
-        RequirePlatforms:
-          min: 2
-          max: 6
+        SetPoint:
+          min: -5
+          max: 15
+        DeltaHeight:
+          min: 0
+          max: 10
         Width:
-          min: 8
-          max: 16
-        HGap:
           min: 4
-          max: 12
-        Up:
-          min: -2
-          max: 3
-        Down:
+          max: 8
+    - rid: 8280360671373688836
+      type: {class: TilemapCustomizer/Recolor, ns: ld51, asm: Assembly-CSharp}
+      data:
+        Odds: 0.5
+        Tiles:
+        - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
+        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
+        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
+        Width:
+          min: 2
+          max: 4
+        Height:
+          min: -1
+          max: 1
+    - rid: 8280360671373688837
+      type: {class: TilemapCustomizer/Extrude, ns: ld51, asm: Assembly-CSharp}
+      data:
+        Width:
           min: 2
           max: 8
+    - rid: 8280360671373688838
+      type: {class: TilemapCustomizer/Climb, ns: ld51, asm: Assembly-CSharp}
+      data:
+        FallOdds: 0.5
+        Rise:
+          min: 2
+          max: 8
+        Run:
+          min: 2
+          max: 8
+    - rid: 8280360671373688839
+      type: {class: TilemapCustomizer/Splay, ns: ld51, asm: Assembly-CSharp}
+      data:
+        SetPoint:
+          min: -5
+          max: 15
+        DeltaHeight:
+          min: 2
+          max: 8
+        Width:
+          min: 2
+          max: 8
+    - rid: 8280360671373688840
+      type: {class: TilemapCustomizer/Recolor, ns: ld51, asm: Assembly-CSharp}
+      data:
+        Odds: 0.5
         Tiles:
-        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
-        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
         - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
-        TileOdds: 0.0625
-    - rid: 6742291532800327686
+        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
+        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
+        Width:
+          min: 2
+          max: 8
+        Height:
+          min: 2
+          max: 8
+    - rid: 8280360671373688841
       type: {class: TilemapCustomizer/ExtrudeGap, ns: ld51, asm: Assembly-CSharp}
       data:
         Before:
           min: 0
           max: 2
         Gap:
-          min: 2
-          max: 5
+          min: 1
+          max: 6
         After:
           min: 0
           max: 2
         Drop:
-          min: -1
-          max: 2
-        Odds: 0.25
-        Tiles:
-        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
-        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
-        - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
-        TileOdds: 0.125
-    - rid: 6742291532800327687
-      type: {class: TilemapCustomizer/Recolor, ns: ld51, asm: Assembly-CSharp}
-      data:
-        Odds: 0.25
-        Tiles:
-        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
-        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
-        - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
-        Width:
-          min: 1
-          max: 4
-        Height:
           min: -2
           max: 2
-    - rid: 6742291532800327688
-      type: {class: TilemapCustomizer/Splay, ns: ld51, asm: Assembly-CSharp}
+        Odds: 0.75
+        Tiles:
+        - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
+        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
+        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
+        TileOdds: 0.25
+    - rid: 8280360671373688842
+      type: {class: TilemapCustomizer/Fork, ns: ld51, asm: Assembly-CSharp}
       data:
-        SetPoint:
+        RequirePlatforms:
           min: 0
-          max: 16
-        DeltaHeight:
+          max: 2
+        Width:
           min: 2
-          max: 6
+          max: 4
+        HGap:
+          min: 2
+          max: 4
+        Up:
+          min: 1
+          max: 3
+        Down:
+          min: 2
+          max: 8
+        Tiles:
+        - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
+        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
+        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
+        TileOdds: 0.25
+    - rid: 8280360671373688843
+      type: {class: TilemapCustomizer/Terminate, ns: ld51, asm: Assembly-CSharp}
+      data:
+        Odds: 0.333
         Width:
           min: 2
           max: 6
-    - rid: 6742291532800327689
-      type: {class: TilemapCustomizer/Climb, ns: ld51, asm: Assembly-CSharp}
+    - rid: 8280360671373688844
+      type: {class: TilemapCustomizer/Initialize, ns: ld51, asm: Assembly-CSharp}
       data:
-        FallOdds: 0.5
-        Rise:
+        InitArea: {x: 10, y: 10}
+        Count:
           min: 1
-          max: 6
-        Run:
+          max: 3
+        Tiles:
+        - {fileID: 11400000, guid: cdbacc90a63d345cfa7ab8e266a2f550, type: 2}
+        - {fileID: 11400000, guid: 0bb9aec167ce543e88b0f164cee5c3cc, type: 2}
+        - {fileID: 11400000, guid: 28382844e8590481886a76eba6dca0fc, type: 2}
+    - rid: 8280360671373688845
+      type: {class: TilemapCustomizer/Terminate, ns: ld51, asm: Assembly-CSharp}
+      data:
+        Odds: 0.666
+        Width:
           min: 2
-          max: 12
-    - rid: 6742291532800327697
+          max: 6
+    - rid: 8280360671373688846
       type: {class: TilemapCustomizer/SpawnEnemy, ns: ld51, asm: Assembly-CSharp}
       data:
-        MaxKarma: 24
+        MaxKarma: 5
         Protos:
+        - {fileID: 3190143044966011116, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+        - {fileID: 4648394648417142141, guid: 0d07a3f260ec54e51a3c5554687a2acf, type: 3}
+        - {fileID: 4648394648417142141, guid: 55bbf24ea1d8f4169be70ad7b7a9ea7b, type: 3}
         - {fileID: 4648394648417142141, guid: e99f5c3bc43d641be876f774292a5337, type: 3}
         - {fileID: 4648394648417142141, guid: 296b1e19c831d4f7aadf5ed7428c13bf, type: 3}
-        - {fileID: 4648394648417142141, guid: 0d07a3f260ec54e51a3c5554687a2acf, type: 3}
-        - {fileID: 3190143044966011116, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
-        - {fileID: 4648394648417142141, guid: 55bbf24ea1d8f4169be70ad7b7a9ea7b, type: 3}
         - {fileID: 4648394648417142141, guid: 374f44d3f05ae486f827f87bdd654b51, type: 3}
         - {fileID: 4648394648417142141, guid: 7ea7b880fbfc64be3b87b44f2f8272a7, type: 3}
+    - rid: 8280360671373688847
+      type: {class: TilemapCustomizer/SpawnEnemy, ns: ld51, asm: Assembly-CSharp}
+      data:
+        MaxKarma: 20
+        Protos:
+        - {fileID: 3190143044966011116, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+        - {fileID: 4648394648417142141, guid: 0d07a3f260ec54e51a3c5554687a2acf, type: 3}
+        - {fileID: 4648394648417142141, guid: 7ea7b880fbfc64be3b87b44f2f8272a7, type: 3}
+        - {fileID: 4648394648417142141, guid: e99f5c3bc43d641be876f774292a5337, type: 3}
+        - {fileID: 4648394648417142141, guid: 296b1e19c831d4f7aadf5ed7428c13bf, type: 3}
+        - {fileID: 4648394648417142141, guid: 55bbf24ea1d8f4169be70ad7b7a9ea7b, type: 3}
+        - {fileID: 4648394648417142141, guid: 374f44d3f05ae486f827f87bdd654b51, type: 3}
+    - rid: 8280360671373688848
+      type: {class: TilemapCustomizer/SpawnEnemy, ns: ld51, asm: Assembly-CSharp}
+      data:
+        MaxKarma: 12
+        Protos:
+        - {fileID: 3190143044966011116, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+        - {fileID: 4648394648417142141, guid: 0d07a3f260ec54e51a3c5554687a2acf, type: 3}
+        - {fileID: 4648394648417142141, guid: 7ea7b880fbfc64be3b87b44f2f8272a7, type: 3}
+        - {fileID: 4648394648417142141, guid: e99f5c3bc43d641be876f774292a5337, type: 3}
+        - {fileID: 4648394648417142141, guid: 296b1e19c831d4f7aadf5ed7428c13bf, type: 3}
+        - {fileID: 4648394648417142141, guid: 55bbf24ea1d8f4169be70ad7b7a9ea7b, type: 3}
+        - {fileID: 4648394648417142141, guid: 374f44d3f05ae486f827f87bdd654b51, type: 3}
 --- !u!1 &1992582063
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +427,8 @@ GameObject:
   - component: {fileID: 1992582064}
   - component: {fileID: 1992582067}
   - component: {fileID: 1992582068}
+  - component: {fileID: 1992582070}
+  - component: {fileID: 1992582069}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -599,7 +495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992582063}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -626,6 +522,21 @@ MonoBehaviour:
     Action:
       m_PersistentCalls:
         m_Calls: []
+  Fire1:
+    topic: {fileID: 0}
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+  Fire2:
+    topic: {fileID: 0}
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+  Fire3:
+    topic: {fileID: 0}
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &1992582068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,8 +550,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CamSmooth: 0.125
-  PointSource:
-    rid: 6742291532800327693
+  FollowMouse: 0
+  <ViewportPoint>k__BackingField: {x: 0, y: 0}
   DeadZone: {x: 0.09375, y: 0.09375}
   MaxZone: {x: 0.9375, y: 0.9375}
   Curve:
@@ -669,13 +580,157 @@ MonoBehaviour:
     m_RotationOrder: 4
   GroundSpeed: 25
   Velocity: {x: 0, y: 0, z: 0}
-  Viewport0: {x: 0, y: 0}
   SpeedRatio: {x: 0, y: 0}
   IsInDeadZone: 0
-  references:
-    version: 2
-    RefIds:
-    - rid: 6742291532800327693
-      type: {class: FollowCamera/TransformPointSource, ns: BDRPG.Screen, asm: org.dawnborn.bdutil.Runtime}
-      data:
-        Transform: {fileID: 234581834}
+--- !u!114 &1992582069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992582063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c37baf6ebc764504978006d4b0eb697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target:
+    topic: {fileID: 11400000, guid: 561222c54ed754c249fa8c156b8e8da1, type: 2}
+    DefaultValue: {fileID: 0}
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+  OnUpdate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1992582068}
+        m_TargetAssemblyTypeName: BDRPG.Screen.FollowCamera, org.dawnborn.bdutil.Runtime
+        m_MethodName: SetViewportPointFromObject
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Delay:
+    Now: 0
+    Start: NaN
+    Length: 0.5
+  OnInactive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6435522901428636822, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+        m_TargetAssemblyTypeName: BDUtil.Clone.Postfab, org.dawnborn.bdutil.Runtime
+        m_MethodName: AcquireInstance
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  CallInactiveEachFrame: 0
+  CalledInactiveOnce: 0
+--- !u!114 &1992582070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992582063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02950948d75744663a1985ebc88c0cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneBounds:
+    m_Center: {x: NaN, y: NaN, z: NaN}
+    m_Extent: {x: 5, y: 5, z: 5}
+  OutOfBound: 2
+  Gravity: {x: 0, y: -9.8}
+--- !u!1001 &2078417868144797127
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2078417868191632002, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: MaxDY
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632002, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: FallDYScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632002, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: JumpDXScale
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632002, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: JumpDYScale
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632003, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_Name
+      value: Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078417868191632013, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435522901428636822, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: <Link>k__BackingField
+      value: 
+      objectReference: {fileID: 2078417868191632003, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+    - target: {fileID: 6435522901428636822, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
+      propertyPath: <FabType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5b13139e10f34069a9268c1712c9083, type: 3}

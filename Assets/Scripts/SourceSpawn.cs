@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BDUtil;
 using BDUtil.Clone;
 using BDUtil.Math;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace ld51
         {
             public Vector2 SpawnPoint;
             public Vector2 dSpawnPoint;
-            public Timer Delay;
+            public Delay Delay;
             public bool isDrawing = true;
             public float turnsInState;  // amount of space we've gone in the current draw/nodraw state
             public float turnsInStateNoCoin;  // amount of space we've gone without placing a coin.
@@ -126,7 +127,7 @@ namespace ld51
             for (int i = BlockHeads.Count - 1; i >= 0; --i)
             {
                 SpawnHead head = BlockHeads[i];
-                if (head.Delay.Tick.IsLive) continue;
+                if (head.Delay) continue;
                 head.Delay.Reset();
                 head.turnsInState += 1f;
                 if (UnityEngine.Random.Range(0f, 1f) <= SwerveOdds.Evaluate(head.turnsInState))

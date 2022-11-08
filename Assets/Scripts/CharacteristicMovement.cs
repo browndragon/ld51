@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using BDUtil;
 using BDUtil.Math;
 using BDUtil.Pubsub;
@@ -26,10 +25,29 @@ namespace ld51
         protected void Update() => Pattern?.OnUpdate(this);
 
         [Serializable]
+        protected struct Input : IPattern
+        {
+            public Topic<Vector2> DirPad;
+            public Topic FirePad;
+            Disposes.All unsubscribe;
+            public void OnEnable(CharacteristicMovement thiz)
+            {
+                unsubscribe ??= new();
+                if (DirPad) unsubscribe.Add(DirPad.Subscribe(thiz.Controller.SetWantMove));
+                if (FirePad) unsubscribe.Add(FirePad.Subscribe(() => thiz.Controller.WantFire = true));
+            }
+            public void OnDisable() => unsubscribe.Dispose();
+            public void OnUpdate(CharacteristicMovement thiz) { }
+        }
+
+        [Serializable]
         protected struct Randomwalk : IPattern
         {
-            public Timer Timer;
+            public Delay Timer;
+            public Delay FireTimer;
             public Extent DXRange;
+            public Extent DYRange;
+            public Extent FireRange;
             public Extent DelayRange;
             public float ReverseOdds;
             public float JumpOdds;
@@ -38,31 +56,41 @@ namespace ld51
             public void OnDisable()
             {
                 Timer.Stop();
+                FireTimer.Stop();
             }
             public void OnEnable(CharacteristicMovement thiz)
             {
-                thiz.Controller.WantDX = -1f;
+                thiz.Controller.WantMove = new(-1f, 0f);
+                FireTimer = new(UnityRandoms.main.RandomValue(FireRange));
             }
             public void OnUpdate(CharacteristicMovement thiz)
             {
-                if (Timer.Tick.IsLive) return;
-                Timer.Reset();
-                float sign = Mathf.Sign(thiz.Controller.WantDX);
-                if (UnityRandoms.main.RandomTrue(ReverseOdds)) sign *= -1f;
-                if (Coroutine != null) thiz.Controller.StopCoroutine(Coroutine);
-                thiz.StartCoroutine(AdjustSpeedTo(thiz.Controller, sign * UnityRandoms.main.RandomValue(DXRange)));
-                thiz.Controller.WantJump = UnityRandoms.main.RandomTrue(JumpOdds);
-            }
-            IEnumerator AdjustSpeedTo(CharacterController2D thiz, float target)
-            {
-                float start = thiz.WantDX;
-                float delta = target - start;
-                float duration = Mathf.Abs(delta / MaxAcc);
-                foreach (Tick tick in new Timer(duration))
+                if (!FireTimer)
                 {
-                    thiz.WantDX = start + delta * tick;
+                    thiz.Controller.WantFire = true;
+                    FireTimer = new(UnityRandoms.main.RandomValue(FireRange));
+                }
+                if (Timer) return;
+                Timer = new(UnityRandoms.main.RandomValue(DelayRange));
+                Vector2 want = new(UnityRandoms.main.RandomValue(DXRange), UnityRandoms.main.RandomValue(DYRange));
+                want.x *= Mathf.Sign(thiz.Controller.WantMove.x);
+                if (UnityRandoms.main.RandomTrue(ReverseOdds)) want.x *= -1;
+
+                if (Coroutine != null) thiz.Controller.StopCoroutine(Coroutine);
+                thiz.StartCoroutine(AdjustSpeedTo(thiz.Controller, want));
+            }
+            IEnumerator AdjustSpeedTo(CharacterController2D thiz, Vector2 target)
+            {
+                Vector2 start = thiz.WantMove;
+                Vector2 delta = target - start;
+                float length = Mathf.Max(Mathf.Abs(delta.x), Mathf.Abs(delta.y));
+                float duration = Mathf.Abs(length / MaxAcc);
+                foreach (var tick in new Delay(duration))
+                {
+                    thiz.WantMove = start + delta * tick;
                     yield return null;
                 }
+                thiz.WantMove = target;
                 Coroutine = null;
             }
         }

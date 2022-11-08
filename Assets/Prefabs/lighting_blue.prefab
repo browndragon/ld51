@@ -9,10 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8512337776987200271}
+  - component: {fileID: 8433458135509308758}
   - component: {fileID: 6305301389440330774}
   - component: {fileID: 1636529428280906402}
   - component: {fileID: 3695018213640686406}
-  - component: {fileID: 8433458135509308758}
+  - component: {fileID: 2729551970592753413}
+  - component: {fileID: -832631322077342109}
   m_Layer: 0
   m_Name: lighting_blue
   m_TagString: Untagged
@@ -35,6 +37,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8433458135509308758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464507857588543212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1005b6684b5084084a08e2389d01e6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <FabType>k__BackingField: 2
+  <Link>k__BackingField: {fileID: 0}
+  <Asset>k__BackingField: {fileID: 8464507857588543212}
 --- !u!212 &6305301389440330774
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -133,7 +150,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8433458135509308758
+--- !u!50 &2729551970592753413
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464507857588543212}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-832631322077342109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +180,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8464507857588543212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1005b6684b5084084a08e2389d01e6c3, type: 3}
+  m_Script: {fileID: 11500000, guid: a4a745e93c0d647bc8f8164ba0a4f35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Root>k__BackingField: {fileID: 0}
+  Target: {fileID: 0}
+  Offset: {x: 0, y: 0, z: 0}
+  OffsetZRot: 0
+  Speed: 12
+  Startup:
+    Length: 0
+    Start: 0
+  Closing: 0
+  StartEase: 0
+  EndEase: 0
+  OnTarget:
+    m_PersistentCalls:
+      m_Calls: []
+  ReachedTarget: 0

@@ -23,12 +23,12 @@ namespace ld51
             if (other.CompareTag("Player"))
             {
                 Score.Value += Points;
-                StartCoroutine(new Timer(.5f)
+                StartCoroutine(new Delay(.5f)
                     .Let(out var start, transform.localScale)
                     .Let(out var mid, new Vector3(2f * start.x, 0f, start.z))
                     .Foreach(
                         t => transform.localScale = Vector3.Lerp(start, mid, Easings.OutBounce(t)),
-                        () => StartCoroutine(new Timer(.25f)
+                        () => StartCoroutine(new Delay(.25f)
                             .Let(out var end, new Vector3(0f, 3f * start.y, start.z))
                             .Foreach(
                                 t => transform.localScale = Vector3.Lerp(mid, end, Easings.OutBounce(t)),
