@@ -18,9 +18,10 @@ GameObject:
   - component: {fileID: 5862343750360017508}
   - component: {fileID: 4966592808402701764}
   - component: {fileID: -8187773983425470407}
+  - component: {fileID: -3927902762544250927}
   m_Layer: 0
   m_Name: BallMan
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,14 +208,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxDX: 12
-  WalkDXScale: 0.5
+  WalkDXScale: 1
   CrouchDXScale: 0.5
   JumpDXScale: 0.75
   AirDXScale: 0.25
   MaxDY: 6
-  JumpDYScale: 3
+  JumpDYScale: 2
   RiseDYScale: 0
-  FallDYScale: -1
+  FallDYScale: 1
   JumpGravity: 0
   RiseGravity: 4
   FallGravity: 6
@@ -234,16 +235,6 @@ MonoBehaviour:
       Start: NaN
       Length: Infinity
   JumpRising: 0
-  Running:
-    Warming: 0
-    Hot: Infinity
-    Cooling: 0.125
-    <PeekHeat>k__BackingField: 0
-    <Count>k__BackingField: 0
-    Timer:
-      Now: 1
-      Start: NaN
-      Length: Infinity
   Firing:
     Warming: 0
     Hot: 0
@@ -254,6 +245,8 @@ MonoBehaviour:
       Now: 1
       Start: NaN
       Length: Infinity
+  Ammo: {fileID: 0}
+  FireVelocity: 12
   Interacting:
     Warming: 0
     Hot: 0
@@ -310,17 +303,36 @@ MonoBehaviour:
           Start: 0
           Length: 0
         DXRange:
-          min: 0
-          max: 0
+          min: 0.25
+          max: 1
         DYRange:
-          min: 0
-          max: 0
+          min: -1
+          max: 1
         FireRange:
           min: 0
-          max: 0
+          max: 10
         DelayRange:
-          min: 0
-          max: 0
+          min: 0.125
+          max: 0.75
         ReverseOdds: 0.25
         JumpOdds: 0.375
         MaxAcc: 10
+        Anchor:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+--- !u!114 &-3927902762544250927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190143044966011115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8fb26c4b0721445d963c1947d694116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DieFor:
+    Now: 0
+    Start: NaN
+    Length: 0.25

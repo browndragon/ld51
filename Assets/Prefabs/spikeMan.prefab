@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: d72a1c62695af481d8113e38c64514d9, type: 2}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: JumpDYScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9102942113351230296, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: <Link>k__BackingField
       value: 

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8187773983425470407, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: managedReferences[6742291532800327698].JumpOdds
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3190143044966011106, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -63,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 59625b1545ac64fb19e1cdd166efb094, type: 2}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: JumpDYScale
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 9102942113351230296, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: <Link>k__BackingField
       value: 

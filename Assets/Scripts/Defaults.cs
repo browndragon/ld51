@@ -10,6 +10,7 @@ namespace ld51
         public GameObject Block;
         public Val<float> Score;
         public Val<Vector2> Controls;
-        public Val<GameObject> FrameSwap;
+        public Val<bool> Fire;
+        public Val<bool> Interact;
     }
 }

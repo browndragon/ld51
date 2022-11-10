@@ -28,13 +28,15 @@ namespace ld51
         protected struct Input : IPattern
         {
             public Topic<Vector2> DirPad;
-            public Topic FirePad;
+            public Topic<bool> FirePad;
+            public Topic<bool> InteractPad;
             Disposes.All unsubscribe;
             public void OnEnable(CharacteristicMovement thiz)
             {
                 unsubscribe ??= new();
                 if (DirPad) unsubscribe.Add(DirPad.Subscribe(thiz.Controller.SetWantMove));
-                if (FirePad) unsubscribe.Add(FirePad.Subscribe(() => thiz.Controller.WantFire = true));
+                if (FirePad) unsubscribe.Add(FirePad.Subscribe(b => thiz.Controller.WantFire = b));
+                if (InteractPad) unsubscribe.Add(InteractPad.Subscribe(b => thiz.Controller.WantInteract = b));
             }
             public void OnDisable() => unsubscribe.Dispose();
             public void OnUpdate(CharacteristicMovement thiz) { }
@@ -53,6 +55,7 @@ namespace ld51
             public float JumpOdds;
             public float MaxAcc;
             public Coroutine Coroutine;
+            public Bounds Anchor;
             public void OnDisable()
             {
                 Timer.Stop();
@@ -62,9 +65,11 @@ namespace ld51
             {
                 thiz.Controller.WantMove = new(-1f, 0f);
                 FireTimer = new(UnityRandoms.main.RandomValue(FireRange));
+                Anchor.center = default;
             }
             public void OnUpdate(CharacteristicMovement thiz)
             {
+                if (Anchor.center == default && Anchor.size != default) Anchor.center = thiz.transform.position;
                 if (!FireTimer)
                 {
                     thiz.Controller.WantFire = true;
@@ -72,9 +77,15 @@ namespace ld51
                 }
                 if (Timer) return;
                 Timer = new(UnityRandoms.main.RandomValue(DelayRange));
-                Vector2 want = new(UnityRandoms.main.RandomValue(DXRange), UnityRandoms.main.RandomValue(DYRange));
+                Vector3 want = new(UnityRandoms.main.RandomValue(DXRange), UnityRandoms.main.RandomValue(DYRange));
                 want.x *= Mathf.Sign(thiz.Controller.WantMove.x);
                 if (UnityRandoms.main.RandomTrue(ReverseOdds)) want.x *= -1;
+
+                if (!Anchor.Contains(thiz.transform.position) && Anchor.size != default)
+                {
+                    Vector3 pos = thiz.transform.position;
+                    Anchor.Bounce(pos, ref want);
+                }
 
                 if (Coroutine != null) thiz.Controller.StopCoroutine(Coroutine);
                 thiz.StartCoroutine(AdjustSpeedTo(thiz.Controller, want));

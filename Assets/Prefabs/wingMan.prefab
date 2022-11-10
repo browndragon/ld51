@@ -63,6 +63,34 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 83047fc812a89476f9ba1ecff0b8b3f8, type: 2}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: MaxDX
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: MaxDY
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: AirDXScale
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: FallDYScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: JumpDXScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: JumpDYScale
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: RiseDYScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9102942113351230296, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: <Link>k__BackingField
       value: 

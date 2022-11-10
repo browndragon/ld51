@@ -173,18 +173,84 @@ namespace ld51
         {
             CustomizerPhase phase = Customizers[Phase];
             if (phase.Karmas == null || phase.Karmas.Length <= 0) return;
-            for (int i = 0; i < Customizers.Length; ++i)
+            for (int i = 0; i < phase.Karmas.Length; ++i)
             {
-                IKarma customizer = phase.Karmas[(offset + i) % phase.Karmas.Length];
-                if (!customizer.Customize(this, tilemap)) continue;
+                IKarma karma = phase.Karmas[(offset + i) % phase.Karmas.Length];
+                if (!karma.Customize(this, tilemap)) continue;
                 return;
             }
-            throw new NotSupportedException();
+            if (BadKarma <= 0 || GoodKarma <= 0) return;
+            else Debug.Log($"Had karma, but none of {phase.Karmas.Summarize()} matched");
         }
         [Serializable]
         public struct None : IKarma
         {
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap) => true;
+        }
+        [Serializable]
+        public struct SpawnSpikes : IKarma
+        {
+            public Collider2D[] TopSpikes;
+            public Collider2D[] BottomSpikes;
+            public ExtentInt Width;
+            public float TopOdds;
+            public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
+            {
+                bool tite = default;
+                Collider2D proto = null;
+                switch ((TopSpikes?.Length > 0, BottomSpikes?.Length > 0))
+                {
+                    case (false, false):
+                        return false;
+                    case (true, true):
+                        if (UnityRandoms.main.RandomTrue(TopOdds)) goto TopLabel; else goto BottomLabel;
+                    case (true, false):
+                    TopLabel:
+                        tite = true; proto = TopSpikes[UnityRandoms.main.Range(0, TopSpikes.Length)]; break;
+                    case (false, true):
+                    BottomLabel:
+                        tite = false; proto = BottomSpikes[UnityRandoms.main.Range(0, BottomSpikes.Length)]; break;
+                }
+
+                int dX = UnityRandoms.main.RandomTrue(.5f) ? +1 : -1;
+                bool? ceiling = tite ? true : null, floor = tite ? null : true;
+                int expended = 0;
+                int max = UnityRandoms.main.RandomValue(Width);
+                for (
+                    Vector3Int target = thiz.RandomCell(tilemap, ceiling, false, floor);
+                    tilemap.cellBounds.Contains(target) && thiz.Matches(tilemap, target, ceiling, false, floor) && expended < max;
+                    target.x += dX, expended++
+                )
+                {
+                    Collider2D instantiated = Pool.main.Acquire(proto);
+                    instantiated.transform.position = tilemap.CellToWorld(target);
+                }
+                thiz.GoodKarma += expended / 2;
+                thiz.BadKarma -= expended;
+                return expended > 0;
+            }
+        }
+        public bool Matches(Tilemap tilemap, Vector3Int cell, bool? wantCeiling, bool? wantSelf, bool? wantFloor)
+        {
+            tern hasCeiling = tilemap.GetTile(cell + Vector3Int.up) != null;
+            tern hasSelf = tilemap.GetTile(cell + Vector3Int.zero) != null;
+            tern hasFloor = tilemap.GetTile(cell + Vector3Int.down) != null;
+            if (hasCeiling ^ wantCeiling) return false;
+            if (hasSelf ^ wantSelf) return false;
+            if (hasFloor ^ wantFloor) return false;
+            return true;
+        }
+        public Vector3Int RandomCell(Tilemap tilemap, bool? wantCeiling = null, bool? wantSelf = false, bool? wantFloor = true)
+        {
+            Vector3Int cell = UnityRandoms.main.RandomValue(tilemap.cellBounds);
+            int celly = cell.y - tilemap.cellBounds.yMin;
+
+            for (int y = 0; y <= tilemap.cellBounds.size.y; ++y)
+            {
+                cell.y = tilemap.cellBounds.yMin + ((y + celly) % tilemap.cellBounds.size.y);
+                if (Matches(tilemap, cell, wantCeiling, wantSelf, wantFloor)) return cell;
+            }
+            return new(int.MinValue, int.MinValue, int.MinValue);
         }
         [Serializable]
         public struct SpawnEnemy : IKarma
@@ -197,30 +263,13 @@ namespace ld51
                 int expended = 0;
                 while (true)
                 {
-                    Vector3Int cell = UnityRandoms.main.RandomValue(tilemap.cellBounds);
-                    int celly = cell.y - tilemap.cellBounds.yMin;
-                    bool isReady = false;
-                    for (int y = 0; y <= tilemap.cellBounds.size.y; ++y)
-                    {
-                        cell.y = tilemap.cellBounds.yMin + ((y + celly) % tilemap.cellBounds.size.y);
-                        TileBase floor = tilemap.GetTile(cell);
-                        if (floor != null)
-                        {
-                            floor = tilemap.GetTile(cell + Vector3Int.up);
-                            if (floor == null)
-                            {
-                                isReady = true; break;
-                            }
-                        }
-                    }
-                    if (isReady)
-                    {
-                        int offset = UnityRandoms.main.Range(0, Protos?.Length ?? 0);
-                        expended += offset / 2 + 1;
-                        if (expended > MaxKarma || expended > thiz.BadKarma) break;
-                        Collider2D instantiated = Pool.main.Acquire(Protos[offset]);
-                        instantiated.transform.position = tilemap.CellToWorld(cell + Vector3Int.up);
-                    }
+                    Vector3Int cell = thiz.RandomCell(tilemap);
+                    if (cell.x <= int.MinValue) return expended > 0;
+                    int offset = UnityRandoms.main.Range(0, Protos?.Length ?? 0);
+                    expended += offset / 2 + 1;
+                    if (expended > MaxKarma || expended > thiz.BadKarma) break;
+                    Collider2D instantiated = Pool.main.Acquire(Protos[offset]);
+                    instantiated.transform.position = tilemap.CellToWorld(cell);
                 }
                 thiz.GoodKarma += expended / 2;
                 thiz.BadKarma -= expended;

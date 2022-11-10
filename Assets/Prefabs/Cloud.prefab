@@ -63,6 +63,30 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 54b87bf868cf84e589fcd23bbab51aab, type: 2}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: Ammo
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: MaxDX
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: FallDYScale
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: FallGravity
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: RiseDYScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: RiseGravity
+      value: 0.125
+      objectReference: {fileID: 0}
     - target: {fileID: 9102942113351230296, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: <Link>k__BackingField
       value: 

@@ -157,12 +157,12 @@ MonoBehaviour:
   MaxDX: 12
   WalkDXScale: 0.5
   CrouchDXScale: 0.5
-  JumpDXScale: 0.75
+  JumpDXScale: 1.25
   AirDXScale: 0.5
-  MaxDY: 6
-  JumpDYScale: 3
+  MaxDY: 12
+  JumpDYScale: 6
   RiseDYScale: 0
-  FallDYScale: -1
+  FallDYScale: 1
   JumpGravity: 0
   RiseGravity: 4
   FallGravity: 6
@@ -182,16 +182,6 @@ MonoBehaviour:
       Start: NaN
       Length: Infinity
   JumpRising: 0
-  Running:
-    Warming: 0
-    Hot: Infinity
-    Cooling: 0.125
-    <PeekHeat>k__BackingField: 0
-    <Count>k__BackingField: 0
-    Timer:
-      Now: 1
-      Start: NaN
-      Length: Infinity
   Firing:
     Warming: 0
     Hot: 0
@@ -202,10 +192,12 @@ MonoBehaviour:
       Now: 1
       Start: NaN
       Length: Infinity
+  Ammo: {fileID: 3175940897916432021, guid: a5cdc8e77de9e439680d24f9539b53ee, type: 3}
+  FireVelocity: 12
   Interacting:
     Warming: 0
     Hot: 0
-    Cooling: 0.5
+    Cooling: 2
     <PeekHeat>k__BackingField: 0
     <Count>k__BackingField: 0
     Timer:
@@ -251,6 +243,7 @@ MonoBehaviour:
       data:
         DirPad: {fileID: 11400000, guid: da71b279c80744a90a03cf98b1145ad3, type: 2}
         FirePad: {fileID: 0}
+        InteractPad: {fileID: 0}
 --- !u!114 &2343093659356698359
 MonoBehaviour:
   m_ObjectHideFlags: 0

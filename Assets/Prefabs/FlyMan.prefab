@@ -63,6 +63,46 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 384bdf81c8fee4e09a6c32386ac86616, type: 2}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: Ammo
+      value: 
+      objectReference: {fileID: 8675054933318089381, guid: d297b8cf04c524709bb24539a70be8d6, type: 3}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: MaxDX
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: MaxDY
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: AirDXScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: FallDYScale
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: FallGravity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: JumpDYScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: RiseDYScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: RiseGravity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
+      propertyPath: WalkDXScale
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9102942113351230296, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: <Link>k__BackingField
       value: 

@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3684742318914760219, guid: f8c4ee7901313446fae4ab0bf9fe8e24, type: 3}
+      propertyPath: <Link>k__BackingField
+      value: 
+      objectReference: {fileID: 3700980244983522721, guid: f8c4ee7901313446fae4ab0bf9fe8e24, type: 3}
     - target: {fileID: 3700980244983522721, guid: f8c4ee7901313446fae4ab0bf9fe8e24, type: 3}
       propertyPath: m_Name
       value: Tites
@@ -63,5 +67,6 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.0625
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: f8c4ee7901313446fae4ab0bf9fe8e24, type: 3}

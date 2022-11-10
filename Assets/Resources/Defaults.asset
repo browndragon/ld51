@@ -21,7 +21,7 @@ MonoBehaviour:
     - Key: {fileID: 888490546837961348, guid: b3cc521c9bb7b42efb268ebfcb52bf1c, type: 3}
       Value: 100
     Error: []
-  Block: {fileID: 0}
+  Block: {fileID: 7447778319518465272, guid: 304b07ad7b63640dc9340edfd7817208, type: 3}
   Score:
     topic: {fileID: 11400000, guid: 5c1644862eb8c47b0a3175c7858185e9, type: 2}
     DefaultValue: 0
@@ -34,10 +34,15 @@ MonoBehaviour:
     Action:
       m_PersistentCalls:
         m_Calls: []
-  FrameSwap:
-    topic: {fileID: 0}
-    DefaultValue: {fileID: 0}
+  Fire:
+    topic: {fileID: 11400000, guid: c39676da5083d46ffa9e2cafcf410bbc, type: 2}
+    DefaultValue: 0
     Action:
       m_PersistentCalls:
         m_Calls: []
-  ChunkSize: {x: 8, y: 16}
+  Interact:
+    topic: {fileID: 11400000, guid: 40b3d24a94f22459ba9b8915b32e874a, type: 2}
+    DefaultValue: 0
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
