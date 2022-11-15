@@ -182,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Proto: {fileID: 2672498453693265646, guid: 4e065e639051d4748b269b2cd060d506, type: 3}
   VClear: 4
+  Seed: 0
   Customizers:
   - Customizers:
     - rid: 8280360671373688832
@@ -426,8 +427,8 @@ MonoBehaviour:
         - {fileID: 8461185752599670795, guid: f8c4ee7901313446fae4ab0bf9fe8e24, type: 3}
         Width:
           min: 0
-          max: 0
-        TopOdds: 0
+          max: 6
+        TopOdds: 0.5
 --- !u!1 &1508935514 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2078417868191632003, guid: e5b13139e10f34069a9268c1712c9083, type: 3}
@@ -648,7 +649,7 @@ MonoBehaviour:
   SceneBounds:
     m_Center: {x: NaN, y: NaN, z: NaN}
     m_Extent: {x: 5, y: 5, z: 5}
-  OutOfBound: 1
+  OutOfBound: 2
   Gravity: {x: 0, y: -9.8}
 --- !u!1 &2142113286
 GameObject:

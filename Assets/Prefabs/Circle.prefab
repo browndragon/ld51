@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2343093659356698359}
   m_Layer: 0
   m_Name: Circle
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,48 +172,48 @@ MonoBehaviour:
     Start: NaN
     Length: 0.125
   Jumping:
+    Timer:
+      Now: 1
+      Start: NaN
+      Length: Infinity
     Warming: 0
     Hot: 0.125
     Cooling: 0.0625
-    <PeekHeat>k__BackingField: 0
-    <Count>k__BackingField: 0
+    PeekHeat: 0
+    Count: 0
+  JumpRising: 0
+  Firing:
     Timer:
       Now: 1
       Start: NaN
       Length: Infinity
-  JumpRising: 0
-  Firing:
     Warming: 0
     Hot: 0
     Cooling: 0.5
-    <PeekHeat>k__BackingField: 0
-    <Count>k__BackingField: 0
-    Timer:
-      Now: 1
-      Start: NaN
-      Length: Infinity
+    PeekHeat: 0
+    Count: 0
   Ammo: {fileID: 3175940897916432021, guid: a5cdc8e77de9e439680d24f9539b53ee, type: 3}
   FireVelocity: 12
   Interacting:
+    Timer:
+      Now: 1
+      Start: NaN
+      Length: Infinity
     Warming: 0
     Hot: 0
     Cooling: 2
-    <PeekHeat>k__BackingField: 0
-    <Count>k__BackingField: 0
+    PeekHeat: 0
+    Count: 0
+  Crouching:
     Timer:
       Now: 1
       Start: NaN
       Length: Infinity
-  Crouching:
     Warming: 0
     Hot: Infinity
     Cooling: 0
-    <PeekHeat>k__BackingField: 0
-    <Count>k__BackingField: 0
-    Timer:
-      Now: 1
-      Start: NaN
-      Length: Infinity
+    PeekHeat: 0
+    Count: 0
   MovementSmoothing: 0.05
   FacingRight: 1
   wantMove: {x: 0, y: 0}

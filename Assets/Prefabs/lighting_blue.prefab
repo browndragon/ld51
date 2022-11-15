@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 1636529428280906402}
   - component: {fileID: 3695018213640686406}
   - component: {fileID: 2729551970592753413}
-  - component: {fileID: -353710598682279639}
+  - component: {fileID: 7993728257251826404}
+  - component: {fileID: -3603239979439915531}
   m_Layer: 0
   m_Name: lighting_blue
   m_TagString: Untagged
@@ -29,14 +30,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8464507857588543212}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.004047, y: 4.5917516, z: -24.483688}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &8433458135509308758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-353710598682279639
+--- !u!114 &7993728257251826404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,26 +181,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8464507857588543212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327b39b1edd094e6782b450a7b978e5b, type: 3}
+  m_Script: {fileID: 11500000, guid: f98b5d24a45a541e1a31f52c62fe1842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnStart_:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEnable_:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDisable_:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDestroy_:
-    m_PersistentCalls:
-      m_Calls: []
+  Loop: 1
   Delay:
     Now: 0
-    Start: 0
+    Start: NaN
     Length: 1
-  After_:
+  Event:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8433458135509308758}
@@ -214,3 +204,64 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-3603239979439915531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464507857588543212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a264d963ece4166a5be45f7e811a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkipSelfTag: 1
+  SkipTags:
+    Data:
+    - Terrain
+    Error: []
+  OnCollider:
+    OnEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8433458135509308758}
+          m_TargetAssemblyTypeName: BDUtil.Clone.Postfab, org.dawnborn.bdutil.Runtime
+          m_MethodName: ReleaseInstance
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnStay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnExit:
+      m_PersistentCalls:
+        m_Calls: []
+  OnGameObject:
+    OnEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: b0e8bcff3853844d0a4d346f078e0094, type: 2}
+          m_TargetAssemblyTypeName: BDUtil.Clone.Pool, org.dawnborn.bdutil.Runtime
+          m_MethodName: Release
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnStay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnExit:
+      m_PersistentCalls:
+        m_Calls: []

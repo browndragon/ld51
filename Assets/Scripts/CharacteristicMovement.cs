@@ -47,10 +47,10 @@ namespace ld51
         {
             public Delay Timer;
             public Delay FireTimer;
-            public Extent DXRange;
-            public Extent DYRange;
-            public Extent FireRange;
-            public Extent DelayRange;
+            public Interval DXRange;
+            public Interval DYRange;
+            public Interval FireRange;
+            public Interval DelayRange;
             public float ReverseOdds;
             public float JumpOdds;
             public float MaxAcc;
@@ -64,7 +64,7 @@ namespace ld51
             public void OnEnable(CharacteristicMovement thiz)
             {
                 thiz.Controller.WantMove = new(-1f, 0f);
-                FireTimer = new(UnityRandoms.main.RandomValue(FireRange));
+                FireTimer = new(Randoms.main.Range(FireRange));
                 Anchor.center = default;
             }
             public void OnUpdate(CharacteristicMovement thiz)
@@ -73,13 +73,13 @@ namespace ld51
                 if (!FireTimer)
                 {
                     thiz.Controller.WantFire = true;
-                    FireTimer = new(UnityRandoms.main.RandomValue(FireRange));
+                    FireTimer = new(Randoms.main.Range(FireRange));
                 }
                 if (Timer) return;
-                Timer = new(UnityRandoms.main.RandomValue(DelayRange));
-                Vector3 want = new(UnityRandoms.main.RandomValue(DXRange), UnityRandoms.main.RandomValue(DYRange));
+                Timer = new(Randoms.main.Range(DelayRange));
+                Vector3 want = new(Randoms.main.Range(DXRange), Randoms.main.Range(DYRange));
                 want.x *= Mathf.Sign(thiz.Controller.WantMove.x);
-                if (UnityRandoms.main.RandomTrue(ReverseOdds)) want.x *= -1;
+                if (Randoms.main.Odds(ReverseOdds)) want.x *= -1;
 
                 if (!Anchor.Contains(thiz.transform.position) && Anchor.size != default)
                 {

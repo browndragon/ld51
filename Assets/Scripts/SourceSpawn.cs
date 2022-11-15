@@ -18,10 +18,10 @@ namespace ld51
         public float MinDistance = 3f;
 
         [Tooltip("output velocity")]
-        public Randoms.Fuzzy<float> dX = new(7.5f, 5f);
+        public Interval dX = new(7f, 8f);
 
         [Tooltip("When we do adjust dY, by how much?")]
-        public Randoms.Fuzzy<float> ddY = new(0, +.125f);
+        public Interval ddY = new(-.125f, +.125f);
 
         [Tooltip("Odds of spawning heads (when asked)")]
         public AnimationCurves.Scaled SpawnHeads = AnimationCurve.Linear(0f, 0f, 1f, 1f);
@@ -100,7 +100,7 @@ namespace ld51
         }
         protected void Update()
         {
-            if (BlockHeads.Count <= 0) partialHead += UnityRandoms.main.RandomValue(SpawnHeads);
+            if (BlockHeads.Count <= 0) partialHead += Randoms.main.Range(SpawnHeads);
             // Update each head by spawning one or more bricks.
             float total = 0f;
             foreach (SpawnHead spawnHead in BlockHeads)
@@ -108,17 +108,17 @@ namespace ld51
                 if (spawnHead.isDrawing) continue;
                 total += spawnHead.turnsInState;
             }
-            if (UnityEngine.Random.Range(0f, 1f) <= ForkOdds.Evaluate(total)) partialHead += Mathf.Max(0f, UnityRandoms.main.RandomValue(SpawnHeads) - 1f);
+            if (UnityEngine.Random.Range(0f, 1f) <= ForkOdds.Evaluate(total)) partialHead += Mathf.Max(0f, Randoms.main.Range(SpawnHeads) - 1f);
             int AllLowerPositionsOld = BlockHeads.Count;
             for (; partialHead > 0f; partialHead -= 1f)
             {
-                Vector3 spawnPoint = UnityRandoms.main.RandomValue(bounds);
+                Vector3 spawnPoint = Randoms.main.Range(bounds);
                 float xDisplacement = bounds.center.x - spawnPoint.x;
-                float speed = UnityRandoms.main.Fuzzed(dX);
+                float speed = Randoms.main.Range(dX);
                 BlockHeads.Add(new()
                 {
                     SpawnPoint = spawnPoint,
-                    dSpawnPoint = new(speed, UnityRandoms.main.Fuzzed(ddY)),
+                    dSpawnPoint = new(speed, Randoms.main.Range(ddY)),
                     Delay = 1 / speed,
                     turnsInState = xDisplacement,
                     turnsInStateNoCoin = xDisplacement,
@@ -132,7 +132,7 @@ namespace ld51
                 head.turnsInState += 1f;
                 if (UnityEngine.Random.Range(0f, 1f) <= SwerveOdds.Evaluate(head.turnsInState))
                 {
-                    head.dSpawnPoint.y += UnityRandoms.main.Fuzzed(ddY);
+                    head.dSpawnPoint.y += Randoms.main.Range(ddY);
                 }
                 head.SpawnPoint.y += head.dSpawnPoint.y;
                 if (!bounds.Contains(head.SpawnPoint))

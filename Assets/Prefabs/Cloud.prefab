@@ -66,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: Ammo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2729551970592753413, guid: 7757e4cf57a3c4ce6bce9348f48815d7, type: 3}
     - target: {fileID: 4966592808402701764, guid: 670bdc8f6488b4458a72728fb965023c, type: 3}
       propertyPath: MaxDX
       value: 6

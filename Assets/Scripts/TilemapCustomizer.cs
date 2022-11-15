@@ -18,6 +18,9 @@ namespace ld51
         public Tilemap Proto = default;
         /// Height to leave between tiles
         public int VClear = 2;
+        public int Seed = 0;
+        public Randoms.IRandom Random;
+
         public interface ICustomizer
         {
             bool Customize(TilemapCustomizer thiz, Tilemap tilemap);
@@ -117,6 +120,7 @@ namespace ld51
                 return any;
             }
         }
+        protected void Awake() => Random = new Randoms.System(Seed);
 
         protected void Start()
         {
@@ -141,7 +145,7 @@ namespace ld51
             Tilemap tilemap = Pool.main.Acquire(Proto);
             tilemap.ClearAllTiles();
             tilemap.CompressBounds();
-            if (!ApplyOneCustomizer(tilemap, UnityRandoms.main.Range(0, phase.Customizers.Length)))
+            if (!ApplyOneCustomizer(tilemap, Random.Index(phase.Customizers)))
             {
                 Pool.main.Release(tilemap.gameObject);
                 return false;
@@ -150,7 +154,7 @@ namespace ld51
             tilemap.transform.SetParent(transform);
             BadKarma += Platforms.Count * tilemap.cellBounds.size.x;
             Width += tilemap.cellBounds.xMax;
-            if (phase.Karmas != null) ApplyOneKarma(tilemap, UnityRandoms.main.Range(0, phase.Karmas.Length));
+            if (phase.Karmas != null) ApplyOneKarma(tilemap, Random.Index(phase.Karmas));
             return true;
         }
         bool ApplyOneCustomizer(Tilemap tilemap, int offset)
@@ -192,7 +196,7 @@ namespace ld51
         {
             public Collider2D[] TopSpikes;
             public Collider2D[] BottomSpikes;
-            public ExtentInt Width;
+            public IntervalInt Width;
             public float TopOdds;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
@@ -203,19 +207,19 @@ namespace ld51
                     case (false, false):
                         return false;
                     case (true, true):
-                        if (UnityRandoms.main.RandomTrue(TopOdds)) goto TopLabel; else goto BottomLabel;
+                        if (thiz.Random.Odds(TopOdds)) goto TopLabel; else goto BottomLabel;
                     case (true, false):
                     TopLabel:
-                        tite = true; proto = TopSpikes[UnityRandoms.main.Range(0, TopSpikes.Length)]; break;
+                        tite = true; proto = thiz.Random.Range(TopSpikes); break;
                     case (false, true):
                     BottomLabel:
-                        tite = false; proto = BottomSpikes[UnityRandoms.main.Range(0, BottomSpikes.Length)]; break;
+                        tite = false; proto = thiz.Random.Range(BottomSpikes); break;
                 }
 
-                int dX = UnityRandoms.main.RandomTrue(.5f) ? +1 : -1;
+                int dX = thiz.Random.Odds(.5f) ? +1 : -1;
                 bool? ceiling = tite ? true : null, floor = tite ? null : true;
                 int expended = 0;
-                int max = UnityRandoms.main.RandomValue(Width);
+                int max = thiz.Random.Range(Width);
                 for (
                     Vector3Int target = thiz.RandomCell(tilemap, ceiling, false, floor);
                     tilemap.cellBounds.Contains(target) && thiz.Matches(tilemap, target, ceiling, false, floor) && expended < max;
@@ -227,6 +231,7 @@ namespace ld51
                 }
                 thiz.GoodKarma += expended / 2;
                 thiz.BadKarma -= expended;
+                Debug.Log($"Finished SpawnSpikes spending {expended}");
                 return expended > 0;
             }
         }
@@ -242,7 +247,7 @@ namespace ld51
         }
         public Vector3Int RandomCell(Tilemap tilemap, bool? wantCeiling = null, bool? wantSelf = false, bool? wantFloor = true)
         {
-            Vector3Int cell = UnityRandoms.main.RandomValue(tilemap.cellBounds);
+            Vector3Int cell = Random.Range(tilemap.cellBounds);
             int celly = cell.y - tilemap.cellBounds.yMin;
 
             for (int y = 0; y <= tilemap.cellBounds.size.y; ++y)
@@ -265,7 +270,7 @@ namespace ld51
                 {
                     Vector3Int cell = thiz.RandomCell(tilemap);
                     if (cell.x <= int.MinValue) return expended > 0;
-                    int offset = UnityRandoms.main.Range(0, Protos?.Length ?? 0);
+                    int offset = thiz.Random.Index(Protos);
                     expended += offset / 2 + 1;
                     if (expended > MaxKarma || expended > thiz.BadKarma) break;
                     Collider2D instantiated = Pool.main.Acquire(Protos[offset]);
@@ -282,19 +287,19 @@ namespace ld51
             [Tooltip("X/Y to cover with new platforms")]
             public Vector2Int InitArea;
             [Tooltip("Number of new platforms")]
-            public ExtentInt Count;
+            public IntervalInt Count;
             public Tile[] Tiles;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count > 0) return false;
                 Platform.Prepare(thiz);
                 // We won't necessarily spawn Count platforms, in case they all collide.
-                for (int i = 0, count = UnityRandoms.main.RandomValue(Count); i < count; ++i)
+                for (int i = 0, count = thiz.Random.Range(Count); i < count; ++i)
                 {
                     Platform @new = new()
                     {
-                        Height = UnityRandoms.main.Range(0, InitArea.y),
-                        Tile = UnityRandoms.main.RandomValue(Tiles)
+                        Height = thiz.Random.Range(0, InitArea.y),
+                        Tile = thiz.Random.Range(Tiles)
                     };
                     int aboveI = thiz.Platforms.BinarySearch(@new);
                     if (aboveI >= 0) continue;
@@ -309,7 +314,7 @@ namespace ld51
                         && thiz.Platforms[aboveI].GetClearance(@new) < thiz.VClear
                     ) continue;
                     thiz.Platforms.Insert(aboveI, @new);
-                    Platform.ContinueX.Insert(aboveI, UnityRandoms.main.Range(0, InitArea.x));
+                    Platform.ContinueX.Insert(aboveI, thiz.Random.Range(0, InitArea.x));
                 }
                 return Platform.ExtrudeTo(thiz, tilemap, InitArea.x);
             }
@@ -317,12 +322,12 @@ namespace ld51
         [Serializable]
         public struct Extrude : ICustomizer
         {
-            public ExtentInt Width;
+            public IntervalInt Width;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 0) return false;
                 Platform.Prepare(thiz);
-                return Platform.ExtrudeTo(thiz, tilemap, UnityRandoms.main.RandomValue(Width));
+                return Platform.ExtrudeTo(thiz, tilemap, thiz.Random.Range(Width));
             }
         }
 
@@ -330,12 +335,12 @@ namespace ld51
         public struct Climb : ICustomizer
         {
             [Range(0f, 1f)] public float FallOdds;
-            public ExtentInt Rise;
-            public ExtentInt Run;
+            public IntervalInt Rise;
+            public IntervalInt Run;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 0) return false;
-                int rise = (UnityRandoms.main.RandomTrue(FallOdds) ? -1 : +1) * UnityRandoms.main.RandomValue(Rise), run = UnityRandoms.main.RandomValue(Run);
+                int rise = (thiz.Random.Odds(FallOdds) ? -1 : +1) * thiz.Random.Range(Rise), run = thiz.Random.Range(Run);
                 for (int i = 0; i < thiz.Platforms.Count; ++i)
                 {
                     Platform platform = thiz.Platforms[i];
@@ -349,9 +354,9 @@ namespace ld51
         [Serializable]
         public struct Splay : ICustomizer
         {
-            public Extent SetPoint;
-            public ExtentInt DeltaHeight;
-            public ExtentInt Width;
+            public Interval SetPoint;
+            public IntervalInt DeltaHeight;
+            public IntervalInt Width;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count < 2) return false;
@@ -359,7 +364,7 @@ namespace ld51
 
                 Vector2Int low = thiz.Platforms[0].Height * Vector2Int.one, high = thiz.Platforms[^1].Height * Vector2Int.one;
                 // Amount of spread to apportion between newLow/newHigh.
-                int deltaHeight = Math.DivRem(UnityRandoms.main.RandomValue(DeltaHeight), 2, out int deltaHeightRem);
+                int deltaHeight = Math.DivRem(thiz.Random.Range(DeltaHeight), 2, out int deltaHeightRem);
 
                 int halfI = Math.DivRem(thiz.Platforms.Count, 2, out int modI);
                 float medianValue = (thiz.Platforms[halfI].Height + thiz.Platforms[halfI + modI].Height) / 2f;
@@ -379,7 +384,7 @@ namespace ld51
 
                 Bresenham.RiseRun splay = new(high.y - low.y, high.x - low.x);
                 splay.MoveNext();
-                int width = UnityRandoms.main.RandomValue(Width);
+                int width = thiz.Random.Range(Width);
                 for (int i = 0; i < thiz.Platforms.Count; ++i)
                 {
                     Platform platform = thiz.Platforms[i];
@@ -397,22 +402,22 @@ namespace ld51
         {
             [Range(0f, 1f)] public float Odds;
             public Tile[] Tiles;
-            public ExtentInt Width;
-            public ExtentInt Height;
+            public IntervalInt Width;
+            public IntervalInt Height;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 0) return false;
                 Platform.Prepare(thiz);
                 for (int i = 0; i < thiz.Platforms.Count; ++i)
                 {
-                    if (!UnityRandoms.main.RandomTrue(Odds)) continue;
+                    if (!thiz.Random.Odds(Odds)) continue;
                     Platform platform = thiz.Platforms[i];
-                    int x = UnityRandoms.main.RandomValue(Width);
+                    int x = thiz.Random.Range(Width);
                     platform.ExtrudeTo(tilemap, 0, x);
                     Platform.ContinueX[i] = x;
 
-                    platform.Tile = UnityRandoms.main.RandomValue(Tiles);
-                    platform.ClampDeltaHeight(UnityRandoms.main.RandomValue(Height), thiz.Platforms.GetValueOrDefault(i - 1), thiz.Platforms.GetValueOrDefault(i + 1), thiz.VClear);
+                    platform.Tile = thiz.Random.Range(Tiles);
+                    platform.ClampDeltaHeight(thiz.Random.Range(Height), thiz.Platforms.GetValueOrDefault(i - 1), thiz.Platforms.GetValueOrDefault(i + 1), thiz.VClear);
                     thiz.Platforms[i] = platform;
                 }
                 int max = Platform.MaxContinue;
@@ -424,10 +429,10 @@ namespace ld51
         [Serializable]
         public struct ExtrudeGap : ICustomizer
         {
-            public ExtentInt Before;
-            public ExtentInt Gap;
-            public ExtentInt After;
-            public ExtentInt Drop;
+            public IntervalInt Before;
+            public IntervalInt Gap;
+            public IntervalInt After;
+            public IntervalInt Drop;
             // Not *actually* odds; for instance, .5 means "one half overall" (and: rounded up!).
             [Range(0f, 1f)] public float Odds;
             public Tile[] Tiles;
@@ -436,19 +441,19 @@ namespace ld51
             {
                 if (thiz.Platforms.Count <= 0 || Odds <= 0f) return false;
                 Platform.Prepare(thiz);
-                foreach (int i in UnityRandoms.main.RandomIndices(thiz.Platforms.Count, Odds))
+                foreach (int i in thiz.Random.Deal(thiz.Platforms.Count, Odds))
                 {
                     Platform platform = thiz.Platforms[i];
-                    int before = UnityRandoms.main.RandomValue(Before);
+                    int before = thiz.Random.Range(Before);
                     platform.ExtrudeTo(tilemap, 0, before);
-                    Platform.ContinueX[i] = before + UnityRandoms.main.RandomValue(Gap);
-                    platform.ClampDeltaHeight(-UnityRandoms.main.RandomValue(Drop), thiz.Platforms.GetValueOrDefault(i - 1), thiz.Platforms.GetValueOrDefault(i + 1), thiz.VClear);
-                    if (UnityRandoms.main.RandomTrue(Odds)) platform.Tile = UnityRandoms.main.RandomValue(Tiles);
+                    Platform.ContinueX[i] = before + thiz.Random.Range(Gap);
+                    platform.ClampDeltaHeight(-thiz.Random.Range(Drop), thiz.Platforms.GetValueOrDefault(i - 1), thiz.Platforms.GetValueOrDefault(i + 1), thiz.VClear);
+                    if (thiz.Random.Odds(Odds)) platform.Tile = thiz.Random.Range(Tiles);
                     thiz.Platforms[i] = platform;
                 }
                 int max = Platform.MaxContinue;
                 if (max <= 0) return false;
-                max += UnityRandoms.main.RandomValue(After);
+                max += thiz.Random.Range(After);
                 Platform.ExtrudeTo(thiz, tilemap, max);
                 return true;
             }
@@ -457,23 +462,23 @@ namespace ld51
         public struct Terminate : ICustomizer
         {
             [Range(0f, 1f)] public float Odds;
-            public ExtentInt Width;
+            public IntervalInt Width;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 1) return false;
-                int width = UnityRandoms.main.RandomValue(Width);
+                int width = thiz.Random.Range(Width);
                 Platform.Prepare(thiz);
                 void UnwrapBackwards(IEnumerator<int> indices)
                 {
                     if (!indices.MoveNext()) return;
                     int target = indices.Current;
                     UnwrapBackwards(indices);
-                    int remainWidth = UnityRandoms.main.Range(0, width);
+                    int remainWidth = thiz.Random.Range(0, width);
                     thiz.Platforms[target].ExtrudeTo(tilemap, 0, remainWidth);
                     thiz.Platforms.RemoveAt(target);
                     Platform.ContinueX.RemoveAt(target);
                 };
-                UnwrapBackwards(UnityRandoms.main.RandomIndices(thiz.Platforms.Count, Odds).GetEnumerator());
+                UnwrapBackwards(thiz.Random.Deal(thiz.Platforms.Count, Odds).GetEnumerator());
                 Platform.ExtrudeTo(thiz, tilemap, width);
                 return true;
             }
@@ -481,26 +486,26 @@ namespace ld51
         [Serializable]
         public struct Fork : ICustomizer
         {
-            public ExtentInt RequirePlatforms;
-            public ExtentInt Width;
-            public ExtentInt HGap;  // Of up to width.
-            public ExtentInt Up;  // Height the upper path can bump up
-            public ExtentInt Down;  // Height below Up to drop (you must choose min > clearance!).
+            public IntervalInt RequirePlatforms;
+            public IntervalInt Width;
+            public IntervalInt HGap;  // Of up to width.
+            public IntervalInt Up;  // Height the upper path can bump up
+            public IntervalInt Down;  // Height below Up to drop (you must choose min > clearance!).
             public Tile[] Tiles;
             [Range(0f, 1f)] public float TileOdds;
             public bool Customize(TilemapCustomizer thiz, Tilemap tilemap)
             {
                 if (thiz.Platforms.Count <= 0) return false;
                 if (thiz.Platforms.Count > RequirePlatforms.max) return false;
-                int splitplatforms = UnityRandoms.main.RandomValue(RequirePlatforms) / 2;
+                int splitplatforms = thiz.Random.Range(RequirePlatforms) / 2;
 
-                int width = UnityRandoms.main.RandomValue(Width);
+                int width = thiz.Random.Range(Width);
                 Platform.Prepare(thiz);
-                foreach (int platformI in UnityRandoms.main.RandomIndices(thiz.Platforms.Count, splitplatforms))
+                foreach (int platformI in thiz.Random.Deal(thiz.Platforms.Count, splitplatforms))
                 {
                     Platform platform = thiz.Platforms[platformI];
-                    int up = platform.Height + UnityRandoms.main.RandomValue(Up);
-                    int down = up - UnityRandoms.main.RandomValue(Down);
+                    int up = platform.Height + thiz.Random.Range(Up);
+                    int down = up - thiz.Random.Range(Down);
                     Platform above = thiz.Platforms.GetValueOrDefault(platformI + 1);
                     Platform below = thiz.Platforms.GetValueOrDefault(platformI - 1);
                     if (above.IsValid)
@@ -522,8 +527,8 @@ namespace ld51
                     if (Platform.ContinueX[platformI] <= 0)
                     {
                         // This is our first split, so we'll leave a stub behind and then continue post-gap
-                        int hgap = Mathf.Min(UnityRandoms.main.RandomValue(HGap), width - 2);
-                        int before = UnityRandoms.main.Range(1, width - hgap);
+                        int hgap = Mathf.Min(thiz.Random.Range(HGap), width - 2);
+                        int before = thiz.Random.Range(1, width - hgap);
 
                         for (int x = 0; x < before; ++x)
                         {
@@ -535,10 +540,10 @@ namespace ld51
                         above = thiz.Platforms[platformI];
                         below = above;
                         above.Height = up;
-                        if (UnityRandoms.main.RandomTrue(TileOdds)) above.Tile = UnityRandoms.main.RandomValue(Tiles);
+                        if (!Tiles.IsEmpty() && thiz.Random.Odds(TileOdds)) above.Tile = thiz.Random.Range(Tiles);
                         thiz.Platforms[platformI] = above;
                         below.Height = down;
-                        if (UnityRandoms.main.RandomTrue(TileOdds)) below.Tile = UnityRandoms.main.RandomValue(Tiles);
+                        if (Tiles.IsEmpty() && thiz.Random.Odds(TileOdds)) below.Tile = thiz.Random.Range(Tiles);
                         thiz.Platforms.Insert(platformI, below);
                         Platform.ContinueX.Insert(platformI, Platform.ContinueX[platformI]);
                     }

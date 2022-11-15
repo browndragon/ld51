@@ -1,5 +1,4 @@
 using System.Collections;
-using BDUtil;
 using BDUtil.Clone;
 using BDUtil.Library;
 using BDUtil.Math;
@@ -20,8 +19,8 @@ public class FlameDespawn : MonoBehaviour
             StartCoroutine(Shimmer(renderer));
         }
     }
-    public Randoms.Fuzzy<float> FadeTime = new(2f, 1f);
-    public Randoms.Fuzzy<float> FadeDistance = new(0f, 1f);
+    public Interval FadeTime = new(2f, 1f);
+    public Interval FadeDistance = new(0f, 1f);
     public HSVA FadeColor = new(.1f, .1f, 0f, 0f);
     IEnumerator Shimmer(SpriteRenderer renderer)
     {
@@ -31,10 +30,10 @@ public class FlameDespawn : MonoBehaviour
         Vector3 prevPosition = origPosition;
         while (true)
         {
-            HSVA targetColor = origColor + UnityRandoms.main.Range(-FadeColor, FadeColor);
+            HSVA targetColor = Randoms.main.Fuzz(origColor, FadeColor);
             targetColor.a = origColor.a;
-            Vector3 targetPosition = origPosition + UnityRandoms.main.Fuzzed(FadeDistance) * Vector3.left;
-            yield return new Delay(UnityRandoms.main.Fuzzed(FadeTime)).Foreach(
+            Vector3 targetPosition = origPosition + Randoms.main.Range(FadeDistance) * Vector3.left;
+            yield return new Delay(Randoms.main.Range(FadeTime)).Foreach(
                 t =>
                 {
                     renderer.color = Color.Lerp(prevColor, targetColor, t);
